@@ -1,0 +1,5 @@
+.balena
+.DS_Store
+
+# Vendored cloudflared binary (~34MB) - not tracked; see cloudflared/Dockerfile.template
+cloudflared/dist/cloudflared

@@ -1,0 +1,15 @@
+# dist/cloudflared is not tracked in git (~34MB). Fetch it before building:
+#   curl -L -o dist/cloudflared \
+#     https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+
+ARG TUNNEL_TOKEN
+ENV TUNNEL_TOKEN=${TUNNEL_TOKEN}
+
+COPY dist /usr/src/app/
+RUN chmod +x /usr/src/app/cloudflared
+RUN chmod +x /usr/src/app/start.sh
+
+CMD ["/usr/src/app/start.sh"]
+

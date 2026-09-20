@@ -43,8 +43,8 @@ data:
     - BALENA_HOST_CONFIG_gpu_mem: 128
     - BALENA_HOST_CONFIG_dtoverlay: "vc4-fkms-v3d"
   applicationEnvironmentVariables:
-    - SHOW_CURSOR: 0
-    - CONTROL_TV: 0
+    - SHOW_CURSOR: 1
+    - CONTROL_TV: 1
     - ENABLE_GPU: 0
     - KIOSK: 1
     - PERSISTENT: 1

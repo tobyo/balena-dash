@@ -1,34 +1,44 @@
 version: '2'
 volumes:
   settings:
+  nginx-data:
+  nginx-logs:
+networks:
+  tunnel:
 services:
-  kiosk:
-    restart: always
-    build: ./kiosk
+  nginx:
+    build: ./nginx
     privileged: true
-    ports:
-      - 5011:5011
+    restart: 'unless-stopped'
     volumes:
-      - 'settings:/data'
+      - nginx-data:/etc/letsencrypt
+      - nginx-logs:/logs
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - tunnel
+  cloudflared:
+    build: ./cloudflared
+    networks:
+      - tunnel
+  browser:
+    build: ./browser
+    privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+    ports:
+        - '5011' # management API (optional)
+        - '35173:35173' # Chromium debugging port (optional)
+        - '35174:35174' # Chromium debugging port (optional)
+    volumes:
+      - 'settings:/data' # Only required if using PERSISTENT flag (see below)i
   scheduler:
     restart: always
     build: ./scheduler
     privileged: true
-  wifi-connect:
-    build: ./wifi-connect
+    devices:
+      - "/dev/cec0:/dev/cec0"
+  yearly-calendar:
     restart: always
-    network_mode: host
-    privileged: true
-    labels:
-      io.balena.features.dbus: '1'
-      io.balena.features.firmware: '1'
-  fbcp:
-    build: ./fbcp
-    restart: on-failure
-    privileged: true
-  browsercontrol:
-    build: ./browsercontrol
-    restart: always
-    privileged: true
+    build: ./yearly-calendar
     ports:
-      - 8080:80
+      - "3000:3000"

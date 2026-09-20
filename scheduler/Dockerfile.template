@@ -1,8 +1,8 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine:latest
 
-RUN install_packages tzdata
+RUN install_packages libcec-tools
 
-COPY scripts /usr/src/
-RUN chmod +x /usr/src/*.sh
+COPY scripts /usr/src/app
+RUN chmod +x /usr/src/app/*.sh
 
-CMD ["/usr/src/start.sh"]
+CMD ["/usr/src/app/start.sh"]
