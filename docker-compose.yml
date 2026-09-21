@@ -1,27 +1,7 @@
 version: '2'
 volumes:
   settings:
-  nginx-data:
-  nginx-logs:
-networks:
-  tunnel:
 services:
-  nginx:
-    build: ./nginx
-    privileged: true
-    restart: 'unless-stopped'
-    volumes:
-      - nginx-data:/etc/letsencrypt
-      - nginx-logs:/logs
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - tunnel
-  cloudflared:
-    build: ./cloudflared
-    networks:
-      - tunnel
   browser:
     build: ./browser
     privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
