@@ -1,6 +1,6 @@
 [submodule "yearly-calendar"]
 	path = yearly-calendar
-	url = git@home-git:tobyo/yearly-calendar.git
+	url = https://github.com/tobyo/yearly-calendar.git
 [submodule "calendar-reader"]
 	path = calendar-reader
-	url = git@home-git:tobyo/calendar-reader.git
+	url = https://github.com/tobyo/calendar-reader.git
