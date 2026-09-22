@@ -1,6 +1,9 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine:latest
 
-RUN install_packages libcec-tools
+# tzdata: cron fires on local time, so the zoneinfo database has to be
+# present for the TZ env var to mean anything.
+# libcec-tools: provides cec-client for the HDMI TV on/off schedule.
+RUN install_packages tzdata libcec-tools
 
 COPY scripts /usr/src/app
 RUN chmod +x /usr/src/app/*.sh

@@ -43,6 +43,9 @@ data:
     - BALENA_HOST_CONFIG_gpu_mem: 128
     - BALENA_HOST_CONFIG_dtoverlay: "vc4-fkms-v3d"
   applicationEnvironmentVariables:
+    # Zone name for the scheduler's cron times (view rotation, TV on/off).
+    # Anything other than a valid zoneinfo name leaves schedules on UTC.
+    - TZ: 'Etc/UTC'
     - SHOW_CURSOR: 1
     - CONTROL_TV: 1
     - ENABLE_GPU: 0
