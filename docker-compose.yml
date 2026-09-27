@@ -27,3 +27,7 @@ services:
     build: ./yearly-calendar
     ports:
       - "3000:3000"
+    environment:
+      # Serve the calendar to other machines on the LAN without a login. The app
+      # otherwise requires Google sign-in for any Host other than yearly-calendar.
+      FORCE_AUTH: 'false'
