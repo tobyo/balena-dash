@@ -28,14 +28,15 @@ jobs:
       - name: Materialise balena build secrets
         env:
           SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
-          CALENDAR_ID_2: ${{ secrets.CALENDAR_ID_2 }}
+          CALENDARS: ${{ secrets.CALENDARS }}
+          WEEK_ONLY_CALENDARS: ${{ secrets.WEEK_ONLY_CALENDARS }}
         run: |
           set -euo pipefail
           mkdir -p .balena/secrets
           printf '%s' "$SERVICE_ACCOUNT_JSON" > .balena/secrets/service-account.json
           python3 -c "import json,sys; json.load(open('.balena/secrets/service-account.json'))" 2>/dev/null \
             || { echo "::error::SERVICE_ACCOUNT_JSON secret is missing or not valid JSON"; exit 1; }
+          [ -n "$CALENDARS" ] || { echo "::error::CALENDARS secret is missing"; exit 1; }
           cat > .balena/balena.yml <<YAML
           build-secrets:
             services:
@@ -45,8 +46,8 @@ jobs:
           build-variables:
             services:
               yearly-calendar:
-                - CALENDAR_ID=${CALENDAR_ID}
-                - CALENDAR_ID_2=${CALENDAR_ID_2}
+                - "CALENDARS=${CALENDARS}"
+                - "WEEK_ONLY_CALENDARS=${WEEK_ONLY_CALENDARS}"
           YAML
 
       - name: Deploy to Balena
