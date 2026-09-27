@@ -48,6 +48,7 @@ jobs:
               yearly-calendar:
                 - "CALENDARS=${CALENDARS}"
                 - "WEEK_ONLY_CALENDARS=${WEEK_ONLY_CALENDARS}"
+                - "NEXT_PUBLIC_FORCE_AUTH=false"
           YAML
 
       - name: Deploy to Balena
