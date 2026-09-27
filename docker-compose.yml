@@ -17,6 +17,8 @@ services:
     privileged: true
     devices:
       - "/dev/cec0:/dev/cec0"
+    labels:
+      io.balena.features.supervisor-api: '1' # nightly browser restart
   yearly-calendar:
     restart: always
     build: ./yearly-calendar
