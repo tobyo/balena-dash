@@ -11,6 +11,9 @@ services:
         - '35174:35174' # Chromium debugging port (optional)
     volumes:
       - 'settings:/data' # Only required if using PERSISTENT flag (see below)i
+    environment:
+      # yearly-calendar rotates the views itself; the browser only loads it once.
+      LAUNCH_URL: 'http://yearly-calendar:3000?cycle=year,month,week&interval=180'
   scheduler:
     restart: always
     build: ./scheduler

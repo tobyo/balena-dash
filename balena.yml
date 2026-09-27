@@ -54,7 +54,7 @@ data:
     - PORTAL_SSID: balenaDash
     - PORTAL_PASSPHRASE: balenaDash
     - ACTIVITY_TIMEOUT: 600
-    - LAUNCH_URL: ''
+    - LAUNCH_URL: 'http://yearly-calendar:3000?cycle=year,month,week&interval=180'
     - ROTATE_DISPLAY: normal
     - WINDOW_POSITION: '0,0'
     - LOCAL_HTTP_DELAY: 0
