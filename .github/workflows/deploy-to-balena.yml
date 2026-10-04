@@ -23,6 +23,11 @@ jobs:
           submodules: recursive
           token: ${{ secrets.SUBMODULES_TOKEN }}
 
+      # Build yearly-calendar's latest main rather than the commit this repo
+      # last recorded, matching what deploy.sh ships from a local push.
+      - name: Use latest yearly-calendar
+        run: git submodule update --remote yearly-calendar
+
       # .balena/ is gitignored, so the build secrets the Dockerfiles expect
       # at /run/secrets/ have to be recreated on the runner.
       - name: Materialise balena build secrets
